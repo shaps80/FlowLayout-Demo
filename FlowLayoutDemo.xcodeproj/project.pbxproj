@@ -26,7 +26,6 @@
 		54DC516222D15656008889A7 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54DC516122D15656008889A7 /* Cell.xib */; };
 		54DC516422D1593D008889A7 /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC516322D1593D008889A7 /* Color+Random.swift */; };
 		54DC516622D15942008889A7 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC516522D15942008889A7 /* Lorem.swift */; };
-		54DC516822D160E3008889A7 /* BaseFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC516722D160E3008889A7 /* BaseFlowLayout.swift */; };
 		54DC516A22D16219008889A7 /* FlowLayoutGlobalElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC516922D16219008889A7 /* FlowLayoutGlobalElement.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +75,6 @@
 		54DC516122D15656008889A7 /* Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 		54DC516322D1593D008889A7 /* Color+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
 		54DC516522D15942008889A7 /* Lorem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
-		54DC516722D160E3008889A7 /* BaseFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFlowLayout.swift; sourceTree = "<group>"; };
 		54DC516922D16219008889A7 /* FlowLayoutGlobalElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayoutGlobalElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,7 +137,6 @@
 			children = (
 				54DC514822D14B4B008889A7 /* FlowLayout.h */,
 				54DC514922D14B4B008889A7 /* Info.plist */,
-				54DC516722D160E3008889A7 /* BaseFlowLayout.swift */,
 				54DC515322D14B59008889A7 /* FlowLayout.swift */,
 				54DC516922D16219008889A7 /* FlowLayoutGlobalElement.swift */,
 				54DC515F22D15079008889A7 /* FlowLayout+Types.swift */,
@@ -279,7 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DC516822D160E3008889A7 /* BaseFlowLayout.swift in Sources */,
 				54DC515822D14B91008889A7 /* FlowLayoutDelegate.swift in Sources */,
 				54DC515E22D14DEC008889A7 /* Helpers.swift in Sources */,
 				54DC515C22D14CBB008889A7 /* FlowLayoutItemAttributes.swift in Sources */,

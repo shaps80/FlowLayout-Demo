@@ -1,7 +1,7 @@
 import UIKit
 import os.log
 
-open class FlowLayout: BaseFlowLayout {
+open class FlowLayout: UICollectionViewFlowLayout {
         
     open override class var layoutAttributesClass: AnyClass {
         return FlowLayoutAttributes.self
