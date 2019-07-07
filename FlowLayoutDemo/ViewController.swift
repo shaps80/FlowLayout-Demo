@@ -84,14 +84,18 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         }, completion: nil)
     }
     
+    private var globalFooterHeight: CGFloat = 44
     private var isGlobalFooterHidden: Bool = false
     @objc private func toggleGlobalFooter(_ sender: Any?) {
         print("\n--- \(isGlobalFooterHidden ? "Footer Shown" : "Footer Hidden")\n")
-        isGlobalFooterHidden.toggle()
+//        isGlobalFooterHidden.toggle()
+        globalFooterHeight = globalFooterHeight > 44 ? 44 : 100
         
-        let context = FlowLayoutInvalidationContext()
-        context.invalidateGlobalFooter = true
-        flowLayout.invalidateLayout(with: context)
+        collectionView.performBatchUpdates({
+            let context = FlowLayoutInvalidationContext()
+            context.invalidateGlobalFooter = true
+            flowLayout.invalidateLayout(with: context)
+        }, completion: nil)
     }
     
     @objc private func add(_ sender: Any?) {
@@ -133,7 +137,7 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     }
     
     func heightForGlobalFooter(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
-        return isGlobalFooterHidden ? 0 : 44
+        return isGlobalFooterHidden ? 0 : globalFooterHeight
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
