@@ -73,6 +73,14 @@ extension FlowLayout {
                 }
             }
         default:
+            if let collectionView = collectionView,
+                attributes.representedElementCategory == .cell,
+                let attributes = attributes as? FlowLayoutAttributes {
+                let count = collectionView.numberOfItems(inSection: attributes.indexPath.section)
+                attributes.isFirstInSection = attributes.indexPath.item == 0
+                attributes.isLastInSection = attributes.indexPath.item == count - 1
+            }
+            
             attributes.frame.origin.y += adjustedOrigin.y
         }
         

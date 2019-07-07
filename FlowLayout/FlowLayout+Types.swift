@@ -3,10 +3,10 @@ import UIKit
 @objc public enum BackgroundLayoutStyle: Int {
     /// No background will be shown
     case none
-    /// A background will be added within the section's bounds
-    case bounds
-    /// A background will be added within the section's bounds, excluding the header and footer areas
-    case excludesHeaderAndFooter
+    /// A background will be added within the section's bounds including the header and footer areas
+    case outerBounds
+    /// A background will be added within the section's bounds excluding the header and footer areas
+    case innerBounds
 }
 
 /// Represents a set of preferences for configuring a global element's behaviour in a `Composed.FlowLayout`

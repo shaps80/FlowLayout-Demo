@@ -151,10 +151,10 @@
 				54DC514922D14B4B008889A7 /* Info.plist */,
 				54DC515322D14B59008889A7 /* FlowLayout.swift */,
 				54F9857422D1FD7E00191D24 /* FlowLayout+Adjustments.swift */,
-				54DC515F22D15079008889A7 /* FlowLayout+Types.swift */,
 				54DC515B22D14CBB008889A7 /* FlowLayoutItemAttributes.swift */,
 				54DC515522D14B6F008889A7 /* FlowLayoutInvalidationContext.swift */,
 				54DC515722D14B91008889A7 /* FlowLayoutDelegate.swift */,
+				54DC515F22D15079008889A7 /* FlowLayout+Types.swift */,
 				54DC515D22D14DEC008889A7 /* Helpers.swift */,
 				54DC515922D14BA5008889A7 /* Constants.swift */,
 			);
