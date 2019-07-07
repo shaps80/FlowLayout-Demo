@@ -6,6 +6,15 @@ open class FlowLayout: UICollectionViewFlowLayout {
     open var globalHeaderConfiguration: GlobalElementConfiguration = .init()
     open var globalFooterConfiguration: GlobalElementConfiguration = .init()
     
+    private var previousCachedGlobalHeaderSize: CGSize = .zero
+    private var previousCachedGlobalFooterSize: CGSize = .zero
+    
+    private var cachedGlobalHeaderSize: CGSize = .zero
+    private var cachedGlobalFooterSize: CGSize = .zero
+    
+    private var globalHeaderUpdate: UICollectionViewUpdateItem.Action = .none
+    private var globalFooterUpdate: UICollectionViewUpdateItem.Action = .none
+    
     internal var cachedGlobalHeaderAttributes: FlowLayoutAttributes?
     internal var cachedGlobalFooterAttributes: FlowLayoutAttributes?
     
@@ -67,10 +76,46 @@ open class FlowLayout: UICollectionViewFlowLayout {
         super.invalidateLayout(with: context)
         
         if context.invalidateGlobalHeader {
+            let oldSize = cachedGlobalHeaderSize
+            let newSize = sizeForGlobalHeader
+            
+            if !context.invalidateEverything {
+                if oldSize == newSize {
+                    globalHeaderUpdate = .none
+                } else if oldSize == .zero, newSize != .zero {
+                    globalHeaderUpdate = .insert
+                } else if oldSize != .zero, newSize == .zero {
+                    globalHeaderUpdate = .delete
+                } else {
+                    globalHeaderUpdate = .reload
+                }
+            } else {
+                globalHeaderUpdate = .none
+            }
+
+            cachedGlobalHeaderSize = newSize
             cachedGlobalHeaderAttributes = nil
         }
         
         if context.invalidateGlobalFooter {
+            let oldSize = cachedGlobalFooterSize
+            let newSize = sizeForGlobalFooter
+            
+            if !context.invalidateEverything {
+                if oldSize == newSize {
+                    globalFooterUpdate = .none
+                } else if oldSize == .zero, newSize != .zero {
+                    globalFooterUpdate = .insert
+                } else if oldSize != .zero, newSize == .zero {
+                    globalFooterUpdate = .delete
+                } else {
+                    globalFooterUpdate = .reload
+                }
+            } else {
+                globalFooterUpdate = .none
+            }
+            
+            cachedGlobalFooterSize = newSize
             cachedGlobalFooterAttributes = nil
         }
         
@@ -88,13 +133,35 @@ open class FlowLayout: UICollectionViewFlowLayout {
     // MARK: - Supplementary IndexPath Tracking
     
     open override func indexPathsToInsertForSupplementaryView(ofKind elementKind: String) -> [IndexPath] {
-        print("\(#function) \(elementKind)")
-        return super.indexPathsToInsertForSupplementaryView(ofKind: elementKind)
+        var indexPaths = super.indexPathsToInsertForSupplementaryView(ofKind: elementKind)
+        
+        if elementKind == UICollectionView.elementKindGlobalHeader, globalHeaderUpdate == .insert {
+            print("\(#function) \(elementKind) \(globalHeaderUpdate)")
+            indexPaths.append(UICollectionView.globalElementIndexPath)
+        }
+        
+        if elementKind == UICollectionView.elementKindGlobalFooter, globalFooterUpdate == .insert {
+            print("\(#function) \(elementKind) \(globalFooterUpdate)")
+            indexPaths.append(UICollectionView.globalElementIndexPath)
+        }
+        
+        return indexPaths
     }
     
     open override func indexPathsToDeleteForSupplementaryView(ofKind elementKind: String) -> [IndexPath] {
-        print("\(#function) \(elementKind)")
-        return super.indexPathsToDeleteForSupplementaryView(ofKind: elementKind)
+        var indexPaths = super.indexPathsToDeleteForSupplementaryView(ofKind: elementKind)
+        
+        if elementKind == UICollectionView.elementKindGlobalHeader, globalHeaderUpdate == .delete {
+            print("\(#function) \(elementKind) \(globalHeaderUpdate)")
+            indexPaths.append(UICollectionView.globalElementIndexPath)
+        }
+        
+        if elementKind == UICollectionView.elementKindGlobalFooter, globalFooterUpdate == .delete {
+            print("\(#function) \(elementKind) \(globalFooterUpdate)")
+            indexPaths.append(UICollectionView.globalElementIndexPath)
+        }
+        
+        return indexPaths
     }
     
     // MARK: - Prepare
@@ -105,14 +172,14 @@ open class FlowLayout: UICollectionViewFlowLayout {
         
         guard let collectionView = collectionView else { return }
         
-        let globalHeaderSize = sizeForGlobalHeader
+        let globalHeaderSize = cachedGlobalHeaderSize
         
         if globalHeaderSize != .zero {
             cachedGlobalHeaderAttributes = FlowLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindGlobalHeader, with: UICollectionView.globalElementIndexPath)
             cachedGlobalHeaderAttributes?.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: globalHeaderSize.height)
         }
         
-        let globalFooterSize = sizeForGlobalFooter
+        let globalFooterSize = cachedGlobalFooterSize
         
         if globalFooterSize != .zero {
             cachedGlobalFooterAttributes = FlowLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindGlobalFooter, with: UICollectionView.globalElementIndexPath)
@@ -128,7 +195,7 @@ open class FlowLayout: UICollectionViewFlowLayout {
     
     open override func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
-        print("\(#function)")
+        print("\(#function) \(updateItems)")
     }
     
     // MARK: - Attributes
@@ -182,24 +249,46 @@ open class FlowLayout: UICollectionViewFlowLayout {
     
     // MARK: - Animation
     
-    open override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        print("\(#function) \(itemIndexPath)")
-        return super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
-    }
-    
-    open override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        print("\(#function) \(itemIndexPath)")
-        return super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath)
-    }
-    
     open override func initialLayoutAttributesForAppearingSupplementaryElement(ofKind elementKind: String, at elementIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         print("\(#function) \(elementKind) \(elementIndexPath)")
-        return super.initialLayoutAttributesForAppearingSupplementaryElement(ofKind: elementKind, at: elementIndexPath)
+        
+        let attributes = copy(of: super.finalLayoutAttributesForDisappearingSupplementaryElement(ofKind: elementKind, at: elementIndexPath))
+        
+        switch elementKind {
+        case UICollectionView.elementKindGlobalHeader where globalHeaderUpdate == .insert:
+            attributes?.alpha = 0
+            attributes?.frame.origin.y = (collectionView?.bounds.minY ?? 0) - (attributes?.size.height ?? 0)
+            return attributes
+        case UICollectionView.elementKindGlobalFooter where globalFooterUpdate == .insert:
+            attributes?.alpha = 0
+            attributes?.frame.origin.y = (collectionView?.bounds.maxY ?? 0) + (attributes?.size.height ?? 0)
+            return attributes
+        default:
+            break
+        }
+        
+        return attributes
     }
     
     open override func finalLayoutAttributesForDisappearingSupplementaryElement(ofKind elementKind: String, at elementIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         print("\(#function) \(elementKind) \(elementIndexPath)")
-        return super.finalLayoutAttributesForDisappearingSupplementaryElement(ofKind: elementKind, at: elementIndexPath)
+        
+        let attributes = copy(of: super.finalLayoutAttributesForDisappearingSupplementaryElement(ofKind: elementKind, at: elementIndexPath))
+        
+        switch elementKind {
+        case UICollectionView.elementKindGlobalHeader where globalHeaderUpdate == .delete:
+            attributes?.alpha = 0
+            attributes?.frame.origin.y = (collectionView?.bounds.minY ?? 0) - (attributes?.size.height ?? 0)
+            return attributes
+        case UICollectionView.elementKindGlobalFooter where globalFooterUpdate == .delete:
+            attributes?.alpha = 0
+            attributes?.frame.origin.y = (collectionView?.bounds.maxY ?? 0) + (attributes?.size.height ?? 0)
+            return attributes
+        default:
+            break
+        }
+        
+        return attributes
     }
     
     // MARK: - Finalize
@@ -212,6 +301,9 @@ open class FlowLayout: UICollectionViewFlowLayout {
     open override func finalizeCollectionViewUpdates() {
         super.finalizeCollectionViewUpdates()
         print("\(#function)")
+        
+        globalHeaderUpdate = .none
+        globalFooterUpdate = .none
     }
     
     // MARK: - Override class types

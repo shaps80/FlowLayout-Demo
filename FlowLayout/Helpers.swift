@@ -49,3 +49,16 @@ public extension FlowLayout {
 }
 
 
+extension UICollectionViewUpdateItem.Action: CustomStringConvertible {
+    
+    public var description: String {
+        switch self {
+        case .delete: return "Delete"
+        case .insert: return "Insert"
+        case .move: return "Move"
+        case .reload: return "Reload"
+        default: return "None"
+        }
+    }
+    
+}

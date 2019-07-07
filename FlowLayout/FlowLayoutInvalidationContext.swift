@@ -9,7 +9,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     
     /// Invalidate the global header
     public var invalidateGlobalHeader: Bool {
-        get { return _invalidateGlobalHeader }
+        get { return invalidateEverything ? true : _invalidateGlobalHeader }
         set {
             // we don't want to enable setting this to false once its true
             guard newValue else { return }
@@ -23,7 +23,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     
     /// Invalidate the global footer
     public var invalidateGlobalFooter: Bool {
-        get { return _invalidateGlobalFooter }
+        get { return invalidateEverything ? true : _invalidateGlobalFooter }
         set {
             // we don't want to enable setting this to false once its true
             guard newValue else { return }
@@ -42,7 +42,7 @@ extension FlowLayoutInvalidationContext {
         ---
          Everything: \(invalidateEverything)
          DataSource: \(invalidateDataSourceCounts)
-         Global headr: \(invalidateGlobalHeader)
+         Global header: \(invalidateGlobalHeader)
          Global footer: \(invalidateGlobalFooter)
          Attributes: \(invalidateFlowLayoutAttributes)
          Metrics: \(invalidateFlowLayoutDelegateMetrics)

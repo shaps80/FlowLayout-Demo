@@ -30,7 +30,7 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         
         // for testing
         navigationItem.largeTitleDisplayMode = .never
-        navigationController?.isNavigationBarHidden = true
+//        navigationController?.isNavigationBarHidden = true
         
         for _ in 0..<50 {
             model.append(Lorem.fullName)
@@ -56,13 +56,42 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         
         flowLayout.globalFooterConfiguration.pinsToContent = true
         flowLayout.globalFooterConfiguration.pinsToBounds = true
-        flowLayout.globalFooterConfiguration.prefersFollowContent = true
+//        flowLayout.globalFooterConfiguration.prefersFollowContent = true
         flowLayout.globalFooterConfiguration.layoutFromSafeArea = false
         
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add(_:))),
             UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(remove(_:)))
         ]
+        
+        navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(title: "Header", style: .plain, target: self, action: #selector(toggleGlobalHeader(_:))),
+            UIBarButtonItem(title: "Footer", style: .plain, target: self, action: #selector(toggleGlobalFooter(_:)))
+        ]
+    }
+    
+    private var globalHeaderHeight: CGFloat = 44
+    private var isGlobalHeaderHidden: Bool = false
+    @objc private func toggleGlobalHeader(_ sender: Any?) {
+        print("\n--- \(isGlobalHeaderHidden ? "Header Shown" : "Header Hidden")\n")
+//        isGlobalHeaderHidden.toggle()
+        globalHeaderHeight = globalHeaderHeight > 44 ? 44 : 100
+        
+        collectionView.performBatchUpdates({
+            let context = FlowLayoutInvalidationContext()
+            context.invalidateGlobalHeader = true
+            flowLayout.invalidateLayout(with: context)
+        }, completion: nil)
+    }
+    
+    private var isGlobalFooterHidden: Bool = false
+    @objc private func toggleGlobalFooter(_ sender: Any?) {
+        print("\n--- \(isGlobalFooterHidden ? "Footer Shown" : "Footer Hidden")\n")
+        isGlobalFooterHidden.toggle()
+        
+        let context = FlowLayoutInvalidationContext()
+        context.invalidateGlobalFooter = true
+        flowLayout.invalidateLayout(with: context)
     }
     
     @objc private func add(_ sender: Any?) {
@@ -100,11 +129,11 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     }
     
     func heightForGlobalHeader(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
-        return 44
+        return isGlobalHeaderHidden ? 0 : globalHeaderHeight
     }
     
     func heightForGlobalFooter(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
-        return 44
+        return isGlobalFooterHidden ? 0 : 44
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
