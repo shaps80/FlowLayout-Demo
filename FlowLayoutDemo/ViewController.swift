@@ -49,13 +49,13 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         flowLayout.minimumLineSpacing = 20
         flowLayout.minimumInteritemSpacing = 20
     
-        flowLayout.globalHeaderConfiguration.pinsToContent = true
-        flowLayout.globalHeaderConfiguration.pinsToBounds = true
-        flowLayout.globalHeaderConfiguration.prefersFollowContent = true
-        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = false
+//        flowLayout.globalHeaderConfiguration.pinsToContent = true
+//        flowLayout.globalHeaderConfiguration.pinsToBounds = true
+//        flowLayout.globalHeaderConfiguration.prefersFollowContent = true
+//        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = true
         
-        flowLayout.globalFooterConfiguration.pinsToContent = true
-        flowLayout.globalFooterConfiguration.pinsToBounds = true
+//        flowLayout.globalFooterConfiguration.pinsToContent = true
+//        flowLayout.globalFooterConfiguration.pinsToBounds = true
 //        flowLayout.globalFooterConfiguration.prefersFollowContent = true
         flowLayout.globalFooterConfiguration.layoutFromSafeArea = false
         
@@ -63,39 +63,6 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add(_:))),
             UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(remove(_:)))
         ]
-        
-        navigationItem.leftBarButtonItems = [
-            UIBarButtonItem(title: "Header", style: .plain, target: self, action: #selector(toggleGlobalHeader(_:))),
-            UIBarButtonItem(title: "Footer", style: .plain, target: self, action: #selector(toggleGlobalFooter(_:)))
-        ]
-    }
-    
-    private var globalHeaderHeight: CGFloat = 44
-    private var isGlobalHeaderHidden: Bool = false
-    @objc private func toggleGlobalHeader(_ sender: Any?) {
-        print("\n--- \(isGlobalHeaderHidden ? "Header Shown" : "Header Hidden")\n")
-//        isGlobalHeaderHidden.toggle()
-        globalHeaderHeight = globalHeaderHeight > 44 ? 44 : 100
-        
-        collectionView.performBatchUpdates({
-            let context = FlowLayoutInvalidationContext()
-            context.invalidateGlobalHeader = true
-            flowLayout.invalidateLayout(with: context)
-        }, completion: nil)
-    }
-    
-    private var globalFooterHeight: CGFloat = 44
-    private var isGlobalFooterHidden: Bool = false
-    @objc private func toggleGlobalFooter(_ sender: Any?) {
-        print("\n--- \(isGlobalFooterHidden ? "Footer Shown" : "Footer Hidden")\n")
-//        isGlobalFooterHidden.toggle()
-        globalFooterHeight = globalFooterHeight > 44 ? 44 : 100
-        
-        collectionView.performBatchUpdates({
-            let context = FlowLayoutInvalidationContext()
-            context.invalidateGlobalFooter = true
-            flowLayout.invalidateLayout(with: context)
-        }, completion: nil)
     }
     
     @objc private func add(_ sender: Any?) {
@@ -133,23 +100,60 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     }
     
     func heightForGlobalHeader(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
-        return isGlobalHeaderHidden ? 0 : globalHeaderHeight
+        let view = GlobalView.fromNib
+        view.setExpanded(isGlobalHeaderExpanded)
+        let target = CGSize(width: collectionView.bounds.width, height: 0)
+        return view.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
     }
     
     func heightForGlobalFooter(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
-        return isGlobalFooterHidden ? 0 : globalFooterHeight
+        let view = GlobalView.fromNib
+        view.setExpanded(isGlobalFooterExpanded)
+        let target = CGSize(width: collectionView.bounds.width, height: 0)
+        return view.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
     }
+    
+    private var isGlobalHeaderExpanded: Bool = false
+    private var isGlobalFooterExpanded: Bool = false
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindGlobalHeader:
-            return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                   withReuseIdentifier: UICollectionView.elementKindGlobalHeader,
-                                                                   for: indexPath)
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: UICollectionView.elementKindGlobalHeader,
+                                                                       for: indexPath) as! GlobalView
+            
+            view.setExpanded(isGlobalHeaderExpanded)
+            
+            view.onToggle = { [unowned self] in
+                self.isGlobalHeaderExpanded.toggle()
+                
+                self.collectionView.performBatchUpdates({
+                    let context = FlowLayoutInvalidationContext()
+                    context.invalidateGlobalHeader = true
+                    self.flowLayout.invalidateLayout(with: context)
+                }, completion: nil)
+            }
+            
+            return view
         case UICollectionView.elementKindGlobalFooter:
-            return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                   withReuseIdentifier: UICollectionView.elementKindGlobalFooter,
-                                                                   for: indexPath)
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: UICollectionView.elementKindGlobalFooter,
+                                                                       for: indexPath) as! GlobalView
+            
+            view.setExpanded(isGlobalFooterExpanded)
+            
+            view.onToggle = { [unowned self] in
+                self.isGlobalFooterExpanded.toggle()
+                
+                self.collectionView.performBatchUpdates({
+                    let context = FlowLayoutInvalidationContext()
+                    context.invalidateGlobalFooter = true
+                    self.flowLayout.invalidateLayout(with: context)
+                }, completion: nil)
+            }
+            
+            return view
         default:
             fatalError()
         }
