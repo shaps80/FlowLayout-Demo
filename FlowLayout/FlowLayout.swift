@@ -6,10 +6,34 @@ open class FlowLayout: UICollectionViewFlowLayout {
     open var globalHeaderConfiguration: GlobalElementConfiguration = .init()
     open var globalFooterConfiguration: GlobalElementConfiguration = .init()
     
-    private var cachedGlobalHeaderAttributes: FlowLayoutAttributes?
-    private var cachedGlobalFooterAttributes: FlowLayoutAttributes?
+    internal var cachedGlobalHeaderAttributes: FlowLayoutAttributes?
+    internal var cachedGlobalFooterAttributes: FlowLayoutAttributes?
     
     // MARK: - Invalidation
+    
+    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        if cachedGlobalHeaderAttributes != nil, globalHeaderConfiguration.pinsToBounds {
+            print("\(#function) global header is pinned")
+            return true
+        }
+        
+        if cachedGlobalFooterAttributes != nil, globalFooterConfiguration.pinsToBounds {
+            print("\(#function) global footer is pinned")
+            return true
+        }
+        
+        if sectionHeadersPinToVisibleBounds {
+            print("\(#function) section headers are pinned")
+            return true
+        }
+        
+        if sectionFootersPinToVisibleBounds {
+            print("\(#function) section foooters are pinned")
+            return true
+        }
+
+        return false
+    }
     
     open override func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
         print("\(#function) old: \(collectionView?.bounds ?? .zero) new: \(newBounds)")
@@ -53,17 +77,11 @@ open class FlowLayout: UICollectionViewFlowLayout {
         print("\(#function)\n\(context.debugDescription)")
     }
     
-    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        print("\(#function) old: \(collectionView?.bounds ?? .zero) new: \(newBounds)")
-        if cachedGlobalHeaderAttributes != nil, globalHeaderConfiguration.pinsToBounds { return true }
-        if cachedGlobalFooterAttributes != nil, globalFooterConfiguration.pinsToBounds { return true }
-        return super.shouldInvalidateLayout(forBoundsChange: newBounds)
-    }
-    
     open override var collectionViewContentSize: CGSize {
         var contentSize = super.collectionViewContentSize
         contentSize.height += cachedGlobalHeaderAttributes?.size.height ?? 0
-        // footer: need to add footer here
+        contentSize.height += cachedGlobalFooterAttributes?.size.height ?? 0
+        print("\(#function) \(contentSize)")
         return contentSize
     }
     
@@ -98,7 +116,7 @@ open class FlowLayout: UICollectionViewFlowLayout {
         
         if globalFooterSize != .zero {
             cachedGlobalFooterAttributes = FlowLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindGlobalFooter, with: UICollectionView.globalElementIndexPath)
-            let maxY = max(collectionView.bounds.maxY, collectionViewContentSize.height)
+            let maxY = max(collectionView.bounds.maxY, collectionViewContentSize.height) - globalFooterSize.height
             cachedGlobalFooterAttributes?.frame = CGRect(x: 0, y: maxY, width: collectionView.bounds.width, height: globalFooterSize.height)
         }
     }
@@ -116,18 +134,20 @@ open class FlowLayout: UICollectionViewFlowLayout {
     // MARK: - Attributes
     
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        print("\(#function) \(rect)")
-        var originalAttributes = copy(of: super.layoutAttributesForElements(in: rect))
+        var originalAttributes = super.layoutAttributesForElements(in: rect) ?? []
         
-        if let attributes = cachedGlobalHeaderAttributes, attributes.frame.intersects(rect) {
-            originalAttributes?.append(attributes)
+        if let attributes = copy(of: cachedGlobalHeaderAttributes).map({ adjustedAttributes(for: $0) }),
+            attributes.frame.intersects(collectionView?.bounds ?? rect) {
+            originalAttributes.append(attributes)
         }
         
-        if let attributes = cachedGlobalFooterAttributes, attributes.frame.intersects(rect) {
-            originalAttributes?.append(attributes)
+        if let attributes = copy(of: cachedGlobalFooterAttributes).map({ adjustedAttributes(for: $0) }),
+            attributes.frame.intersects(collectionView?.bounds ?? rect) {
+            originalAttributes.append(attributes)
         }
         
-        return adjustedAttributes(for: originalAttributes ?? [])
+        print("\(#function)\n---\n\(originalAttributes.compactMap { $0.representedElementKind })\n---\n")
+        return adjustedAttributes(for: copy(of: originalAttributes) ?? [])
     }
     
     open override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
@@ -141,33 +161,16 @@ open class FlowLayout: UICollectionViewFlowLayout {
         case UICollectionView.elementKindGlobalFooter:
             attributes = cachedGlobalFooterAttributes
         default:
-            guard let originalAttributes = copy(of: super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)) else { return nil }
-            attributes = originalAttributes
+            attributes = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath) as? FlowLayoutAttributes
         }
         
-        return attributes.map { adjustedAttributes(for: $0) }
+        return copy(of: attributes).map { adjustedAttributes(for: $0) }
     }
     
     open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         print("\(#function) \(indexPath)")
-        guard let attributes = copy(of: super.layoutAttributesForItem(at: indexPath)) else { return nil }
-        return adjustedAttributes(for: attributes)
-    }
-    
-    private func adjustedAttributes(for attributes: [UICollectionViewLayoutAttributes]) -> [UICollectionViewLayoutAttributes] {
-        return attributes.map { adjustedAttributes(for: $0) }
-    }
-    
-    private func adjustedAttributes(for attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        switch attributes.representedElementKind {
-        case UICollectionView.elementKindGlobalHeader:
-            return attributes
-        case UICollectionView.elementKindGlobalFooter:
-            return attributes
-        default:
-            attributes.frame.origin.y += cachedGlobalHeaderAttributes?.size.height ?? 0
-            return attributes
-        }
+        guard let attributes = super.layoutAttributesForItem(at: indexPath) else { return nil }
+        return copy(of: attributes).map { adjustedAttributes(for: $0) }
     }
     
     // MARK: - Target Offset

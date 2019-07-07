@@ -28,19 +28,36 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for _ in 0..<5 {
+        // for testing
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.isNavigationBarHidden = true
+        
+        for _ in 0..<50 {
             model.append(Lorem.fullName)
         }
         
         collectionView.alwaysBounceVertical = true
         collectionView.register(UINib(nibName: "Cell", bundle: nil), forCellWithReuseIdentifier: "Cell")
-        collectionView.register(UINib(nibName: "GlobalHeader", bundle: nil),
+        collectionView.register(UINib(nibName: "GlobalView", bundle: nil),
                                 forSupplementaryViewOfKind: UICollectionView.elementKindGlobalHeader,
                                 withReuseIdentifier: UICollectionView.elementKindGlobalHeader)
+        collectionView.register(UINib(nibName: "GlobalView", bundle: nil),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindGlobalFooter,
+                                withReuseIdentifier: UICollectionView.elementKindGlobalFooter)
         
         flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         flowLayout.minimumLineSpacing = 20
         flowLayout.minimumInteritemSpacing = 20
+    
+        flowLayout.globalHeaderConfiguration.pinsToContent = true
+        flowLayout.globalHeaderConfiguration.pinsToBounds = true
+        flowLayout.globalHeaderConfiguration.prefersFollowContent = true
+        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = false
+        
+        flowLayout.globalFooterConfiguration.pinsToContent = true
+        flowLayout.globalFooterConfiguration.pinsToBounds = true
+        flowLayout.globalFooterConfiguration.prefersFollowContent = true
+        flowLayout.globalFooterConfiguration.layoutFromSafeArea = false
         
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add(_:))),
@@ -86,6 +103,10 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         return 44
     }
     
+    func heightForGlobalFooter(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
+        return 44
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindGlobalHeader:
@@ -93,7 +114,9 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
                                                                    withReuseIdentifier: UICollectionView.elementKindGlobalHeader,
                                                                    for: indexPath)
         case UICollectionView.elementKindGlobalFooter:
-            fatalError()
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                   withReuseIdentifier: UICollectionView.elementKindGlobalFooter,
+                                                                   for: indexPath)
         default:
             fatalError()
         }

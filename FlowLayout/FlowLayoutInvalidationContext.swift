@@ -14,7 +14,8 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
             // we don't want to enable setting this to false once its true
             guard newValue else { return }
             _invalidateGlobalHeader = newValue
-            invalidateFlowLayoutDelegateMetrics = true
+            // todo: need to check this but not sure its needed
+//            invalidateFlowLayoutDelegateMetrics = true
         }
     }
     
@@ -27,7 +28,8 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
             // we don't want to enable setting this to false once its true
             guard newValue else { return }
             _invalidateGlobalFooter = newValue
-            invalidateFlowLayoutDelegateMetrics = true
+            // todo: need to check this but not sure its needed
+//            invalidateFlowLayoutDelegateMetrics = true
         }
     }
     
