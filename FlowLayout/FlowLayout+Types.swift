@@ -10,7 +10,7 @@ import UIKit
 }
 
 /// Represents a set of preferences for configuring a global element's behaviour in a `Composed.FlowLayout`
-public struct GlobalPreferences {
+public struct GlobalElementConfiguration {
     
     /// If true, the global element will remain pinned to the collectionView's bounds
     public var pinsToBounds: Bool = true

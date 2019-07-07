@@ -17,17 +17,7 @@ extension FlowLayout {
     
 }
 
-final class Cell: UICollectionViewCell {
-    
-    @IBOutlet weak var label: UILabel!
-    
-    static var fromNib: Cell {
-        return UINib(nibName: "Cell", bundle: nil).instantiate(withOwner: nil, options: nil).first as! Cell
-    }
-    
-}
-
-final class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     
     private var model: [String] = []
     
@@ -42,11 +32,14 @@ final class ViewController: UICollectionViewController, UICollectionViewDelegate
             model.append(Lorem.fullName)
         }
         
+        flowLayout.globalHeaderElement = FlowLayoutGlobalElement()
+        
         collectionView.alwaysBounceVertical = true
         collectionView.register(UINib(nibName: "Cell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         
         flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         flowLayout.minimumLineSpacing = 20
+        flowLayout.minimumInteritemSpacing = 20
         
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add(_:))),
@@ -55,14 +48,14 @@ final class ViewController: UICollectionViewController, UICollectionViewDelegate
     }
     
     @objc private func add(_ sender: Any?) {
-        print("--- Add")
+        print("\n--- Add\n")
         model.append(Lorem.fullName)
         collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
     }
     
     @objc private func remove(_ sender: Any?) {
         guard model.count > 0 else { return }
-        print("--- Remove")
+        print("\n--- Remove\n")
         model.remove(at: 0)
         collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
     }
@@ -76,14 +69,24 @@ final class ViewController: UICollectionViewController, UICollectionViewDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+        cell.label.text = model[indexPath.item]
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = flowLayout.columnWidth(forColumnCount: 1, inSection: indexPath.section)
+        let width = flowLayout.columnWidth(forColumnCount: 3, inSection: indexPath.section)
         let cell = Cell.fromNib
         let target = CGSize(width: width, height: 0)
         return cell.contentView.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+    }
+    
+    func heightForGlobalHeader(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
+        return 44
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return GlobalHeader.fromNib
     }
 
 }

@@ -10,14 +10,9 @@ open class FlowLayout: UICollectionViewFlowLayout {
     open override class var invalidationContextClass: AnyClass {
         return FlowLayoutInvalidationContext.self
     }
-    
-    open var globalElements: [FlowLayoutGlobalElement] = [] {
-        didSet {
-            let context = FlowLayoutInvalidationContext()
-            context.invalidateGlobalHeader = true
-            context.invalidateGlobalFooter = true
-            invalidateLayout(with: context)
-        }
+
+    open var globalHeaderElement: FlowLayoutGlobalElement? {
+        didSet { globalHeaderElement?.layout = self }
     }
     
     // MARK: - Invalidation
