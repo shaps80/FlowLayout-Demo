@@ -32,10 +32,11 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
             model.append(Lorem.fullName)
         }
         
-        flowLayout.globalHeaderElement = FlowLayoutGlobalElement()
-        
         collectionView.alwaysBounceVertical = true
         collectionView.register(UINib(nibName: "Cell", bundle: nil), forCellWithReuseIdentifier: "Cell")
+        collectionView.register(UINib(nibName: "GlobalHeader", bundle: nil),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindGlobalHeader,
+                                withReuseIdentifier: UICollectionView.elementKindGlobalHeader)
         
         flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         flowLayout.minimumLineSpacing = 20
@@ -86,7 +87,16 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        return GlobalHeader.fromNib
+        switch kind {
+        case UICollectionView.elementKindGlobalHeader:
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                   withReuseIdentifier: UICollectionView.elementKindGlobalHeader,
+                                                                   for: indexPath)
+        case UICollectionView.elementKindGlobalFooter:
+            fatalError()
+        default:
+            fatalError()
+        }
     }
 
 }
