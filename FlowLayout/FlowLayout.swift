@@ -2,8 +2,21 @@ import UIKit
 import os.log
 
 open class FlowLayout: UICollectionViewFlowLayout {
-    
+
+    /// Here you can configure the behaviour of your global header.
+    ///
+    /// In order to add a global header to your view, ensure you return a `height > 0` from `FlowLayoutDelegate`
+    ///
+    ///     @objc optional func heightForGlobalHeader(in collectionView: UICollectionView,
+    ///                                     layout collectionViewLayout: UICollectionViewLayout) -> CGFloat
     open var globalHeaderConfiguration: GlobalElementConfiguration = .init()
+
+    /// Here you can configure the behaviour of your global footer.
+    ///
+    /// In order to add a global footer to your view, ensure you return a height > 0 from FlowLayoutDelegate
+    ///
+    ///     @objc optional func heightForGlobalFooter(in collectionView: UICollectionView,
+    ///                                     layout collectionViewLayout: UICollectionViewLayout) -> CGFloat
     open var globalFooterConfiguration: GlobalElementConfiguration = .init()
 
     private var cachedGlobalHeaderSize: CGSize = .zero
