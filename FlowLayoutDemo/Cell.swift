@@ -10,11 +10,4 @@ final class Cell: UICollectionViewCell, NibLoadable {
         label.text = nil
     }
     
-    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
-        super.apply(layoutAttributes)
-        
-        guard let attributes = layoutAttributes as? FlowLayoutAttributes else { return }
-        print("\(#function) \(attributes.indexPath), isFirst: \(attributes.isFirstInSection), isLast: \(attributes.isLastInSection)")
-    }
-    
 }

@@ -29,8 +29,8 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         super.viewDidLoad()
         
         // for testing
-        navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.isNavigationBarHidden = true
+//        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.isNavigationBarHidden = true
         
         for _ in 0..<50 {
             model.append(Lorem.fullName)
@@ -44,6 +44,9 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         collectionView.register(UINib(nibName: "GlobalView", bundle: nil),
                                 forSupplementaryViewOfKind: UICollectionView.elementKindGlobalFooter,
                                 withReuseIdentifier: UICollectionView.elementKindGlobalFooter)
+        collectionView.register(UICollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindBackground,
+                                withReuseIdentifier: UICollectionView.elementKindBackground)
         
         flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         flowLayout.minimumLineSpacing = 20
@@ -52,7 +55,7 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
 //        flowLayout.globalHeaderConfiguration.pinsToContent = true
 //        flowLayout.globalHeaderConfiguration.pinsToBounds = true
 //        flowLayout.globalHeaderConfiguration.prefersFollowContent = true
-//        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = true
+        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = false
         
 //        flowLayout.globalFooterConfiguration.pinsToContent = true
 //        flowLayout.globalFooterConfiguration.pinsToBounds = true
@@ -66,14 +69,12 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     }
     
     @objc private func add(_ sender: Any?) {
-        print("\n--- Add\n")
         model.append(Lorem.fullName)
         collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
     }
     
     @objc private func remove(_ sender: Any?) {
         guard model.count > 0 else { return }
-        print("\n--- Remove\n")
         model.remove(at: 0)
         collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
     }
@@ -127,10 +128,11 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
             
             view.onToggle = { [unowned self] in
                 self.isGlobalHeaderExpanded.toggle()
+                view.setExpanded(self.isGlobalHeaderExpanded)
                 
                 self.collectionView.performBatchUpdates({
                     let context = FlowLayoutInvalidationContext()
-                    context.invalidateGlobalHeader = true
+                    context.invalidateGlobalHeaderMetrics = true
                     self.flowLayout.invalidateLayout(with: context)
                 }, completion: nil)
             }
@@ -145,18 +147,34 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
             
             view.onToggle = { [unowned self] in
                 self.isGlobalFooterExpanded.toggle()
+                view.setExpanded(self.isGlobalFooterExpanded)
                 
                 self.collectionView.performBatchUpdates({
                     let context = FlowLayoutInvalidationContext()
-                    context.invalidateGlobalFooter = true
+                    context.invalidateGlobalFooterMetrics = true
                     self.flowLayout.invalidateLayout(with: context)
                 }, completion: nil)
             }
             
             return view
+        case UICollectionView.elementKindBackground:
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: UICollectionView.elementKindBackground,
+                                                                       for: indexPath)
+            view.backgroundColor = UIColor(white: 0, alpha: 0.1)
+            view.layer.cornerRadius = 12
+            return view
         default:
             fatalError()
         }
+    }
+    
+    func backgroundLayoutStyle(in collectionView: UICollectionView, forSectionAt section: Int) -> BackgroundLayoutStyle {
+        return .innerBounds
+    }
+    
+    func backgroundLayoutInsets(in collectionView: UICollectionView, forSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
 }
