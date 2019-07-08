@@ -188,17 +188,17 @@ open class FlowLayout: UICollectionViewFlowLayout {
         var originalAttributes = super.layoutAttributesForElements(in: rect) ?? []
         
         if let attributes = copy(of: cachedGlobalHeaderAttributes).map({ adjustedAttributes(for: $0) }),
-            attributes.frame.intersects(collectionView?.bounds ?? rect) {
+            attributes.frame.intersects(rect) {
             originalAttributes.append(attributes)
         }
         
         if let attributes = copy(of: cachedGlobalFooterAttributes).map({ adjustedAttributes(for: $0) }),
-            attributes.frame.intersects(collectionView?.bounds ?? rect) {
+            attributes.frame.intersects(rect) {
             originalAttributes.append(attributes)
         }
         
         let attributes = cachedBackgroundAttributes.values
-            .filter({ $0.frame.intersects(collectionView?.bounds ?? rect) })
+            .filter({ $0.frame.intersects(rect) })
         
         originalAttributes.append(contentsOf: attributes)
         
