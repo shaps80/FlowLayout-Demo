@@ -29,8 +29,8 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         super.viewDidLoad()
         
         // for testing
-//        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.isNavigationBarHidden = true
+        navigationItem.largeTitleDisplayMode = .never
+//        navigationController?.isNavigationBarHidden = true
         
         for _ in 0..<50 {
             model.append(Lorem.fullName)
@@ -52,13 +52,13 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         flowLayout.minimumLineSpacing = 20
         flowLayout.minimumInteritemSpacing = 20
     
-//        flowLayout.globalHeaderConfiguration.pinsToContent = true
-//        flowLayout.globalHeaderConfiguration.pinsToBounds = true
+        flowLayout.globalHeaderConfiguration.pinsToContent = true
+        flowLayout.globalHeaderConfiguration.pinsToBounds = true
 //        flowLayout.globalHeaderConfiguration.prefersFollowContent = true
-        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = false
+//        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = false
         
 //        flowLayout.globalFooterConfiguration.pinsToContent = true
-//        flowLayout.globalFooterConfiguration.pinsToBounds = true
+        flowLayout.globalFooterConfiguration.pinsToBounds = true
 //        flowLayout.globalFooterConfiguration.prefersFollowContent = true
         flowLayout.globalFooterConfiguration.layoutFromSafeArea = false
         
@@ -92,26 +92,39 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         cell.label.text = model[indexPath.item]
         return cell
     }
-    
+
+    let cell = Cell.fromNib
+    var cachedBounds: [IndexPath: CGRect] = [:]
+    var cachedItemSizes: [IndexPath: CGSize] = [:]
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        defer {
+            cachedBounds[indexPath] = collectionView.bounds
+        }
+
+        if let size = cachedItemSizes[indexPath],
+            cachedBounds[indexPath]?.width == collectionView.bounds.width {
+            return size
+        }
+
         let width = flowLayout.columnWidth(forColumnCount: 3, inSection: indexPath.section)
-        let cell = Cell.fromNib
         let target = CGSize(width: width, height: 0)
-        return cell.contentView.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+
+        cachedItemSizes[indexPath] = cell.contentView.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+        return cachedItemSizes[indexPath] ?? .zero
     }
-    
+
+    let globalHeader = GlobalView.fromNib
     func heightForGlobalHeader(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
-        let view = GlobalView.fromNib
-        view.setExpanded(isGlobalHeaderExpanded)
+        globalHeader.setExpanded(isGlobalHeaderExpanded)
         let target = CGSize(width: collectionView.bounds.width, height: 0)
-        return view.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
+        return globalHeader.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
     }
-    
+
+    let globalFooter = GlobalView.fromNib
     func heightForGlobalFooter(in collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat {
-        let view = GlobalView.fromNib
-        view.setExpanded(isGlobalFooterExpanded)
+        globalFooter.setExpanded(isGlobalFooterExpanded)
         let target = CGSize(width: collectionView.bounds.width, height: 0)
-        return view.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
+        return globalFooter.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
     }
     
     private var isGlobalHeaderExpanded: Bool = false

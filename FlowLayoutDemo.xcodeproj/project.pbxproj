@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54B0067622D3DB240085E479 /* FlowLayout+Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */; };
 		54DC512E22D14B41008889A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512D22D14B41008889A7 /* AppDelegate.swift */; };
 		54DC513022D14B41008889A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512F22D14B41008889A7 /* SceneDelegate.swift */; };
 		54DC513222D14B41008889A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC513122D14B41008889A7 /* ViewController.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout+Backgrounds.swift"; sourceTree = "<group>"; };
 		54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DC512D22D14B41008889A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54DC512F22D14B41008889A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				54DC514922D14B4B008889A7 /* Info.plist */,
 				54DC515322D14B59008889A7 /* FlowLayout.swift */,
 				54F9857422D1FD7E00191D24 /* FlowLayout+Adjustments.swift */,
+				54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */,
 				54DC515B22D14CBB008889A7 /* FlowLayoutItemAttributes.swift */,
 				54DC515522D14B6F008889A7 /* FlowLayoutInvalidationContext.swift */,
 				54DC515722D14B91008889A7 /* FlowLayoutDelegate.swift */,
@@ -293,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54DC515822D14B91008889A7 /* FlowLayoutDelegate.swift in Sources */,
+				54B0067622D3DB240085E479 /* FlowLayout+Backgrounds.swift in Sources */,
 				54DC515E22D14DEC008889A7 /* Helpers.swift in Sources */,
 				54F9857522D1FD7E00191D24 /* FlowLayout+Adjustments.swift in Sources */,
 				54DC515C22D14CBB008889A7 /* FlowLayoutItemAttributes.swift in Sources */,

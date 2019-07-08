@@ -10,7 +10,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     private var _invalidateGlobalHeaderLayoutAttributes: Bool = false
     /// Invalidates just the position of the global header
     public var invalidateGlobalHeaderLayoutAttributes: Bool {
-        get { return invalidateEverything ? true : _invalidateGlobalHeaderLayoutAttributes }
+        get { return _invalidateGlobalHeaderLayoutAttributes }
         set {
             guard newValue else { return }
             _invalidateGlobalHeaderLayoutAttributes = newValue
@@ -20,7 +20,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     private var _invalidateGlobalFooterLayoutAttributes: Bool = false
     /// Invalidates just the position of the global footer
     public var invalidateGlobalFooterLayoutAttributes: Bool {
-        get { return invalidateEverything ? true : _invalidateGlobalFooterLayoutAttributes }
+        get { return _invalidateGlobalFooterLayoutAttributes }
         set {
             guard newValue else { return }
             _invalidateGlobalFooterLayoutAttributes = newValue
@@ -30,7 +30,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     private var _invalidateGlobalHeaderMetrics: Bool = false
     /// Invalidates the size and position of the global header
     public var invalidateGlobalHeaderMetrics: Bool {
-        get { return invalidateEverything ? true : _invalidateGlobalHeaderMetrics }
+        get { return _invalidateGlobalHeaderMetrics }
         set {
             guard newValue else { return }
             _invalidateGlobalHeaderMetrics = newValue
@@ -41,7 +41,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     private var _invalidateGlobalFooterMetrics: Bool = false
     /// Invalidates the size and position of the global footer
     public var invalidateGlobalFooterMetrics: Bool {
-        get { return invalidateEverything ? true : _invalidateGlobalFooterMetrics }
+        get { return _invalidateGlobalFooterMetrics }
         set {
             guard newValue else { return }
             _invalidateGlobalFooterMetrics = newValue
@@ -52,7 +52,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     private var _invalidateGlobalHeader: Bool = false
     /// Invalidate all cached values for the global header
     public var invalidateGlobalHeader: Bool {
-        get { return invalidateEverything ? true : _invalidateGlobalHeader }
+        get { return _invalidateGlobalHeader }
         set {
             guard newValue else { return }
             _invalidateGlobalHeader = newValue
@@ -65,7 +65,7 @@ public final class FlowLayoutInvalidationContext: UICollectionViewFlowLayoutInva
     private var _invalidateGlobalFooter: Bool = false
     /// Invalidate all cached values for the global footer
     public var invalidateGlobalFooter: Bool {
-        get { return invalidateEverything ? true : _invalidateGlobalFooter }
+        get { return _invalidateGlobalFooter }
         set {
             guard newValue else { return }
             _invalidateGlobalFooter = newValue
@@ -122,10 +122,10 @@ extension FlowLayoutInvalidationContext {
         Global header attributes: \(invalidateGlobalHeaderLayoutAttributes)
         Global footer: \(invalidateGlobalFooter)
         Global footer metrics: \(invalidateGlobalFooterMetrics)
-        Global footer attributes: \(invalidateGlobalFooterMetrics)
-        Backgrounds: \(invalidateBackgrounds)
-        Attributes: \(invalidateFlowLayoutAttributes)
-        Metrics: \(invalidateFlowLayoutDelegateMetrics)
+        Global footer attributes: \(invalidateGlobalFooterLayoutAttributes)
+        All Backgrounds: \(invalidateBackgrounds)
+        All Attributes: \(invalidateFlowLayoutAttributes)
+        All Metrics: \(invalidateFlowLayoutDelegateMetrics)
         Items: \(invalidatedItemIndexPaths ?? [])
         Supplementary: \(invalidatedSupplementaryIndexPaths ?? [:])
         ---

@@ -5,7 +5,7 @@ open class FlowLayout: UICollectionViewFlowLayout {
     
     open var globalHeaderConfiguration: GlobalElementConfiguration = .init()
     open var globalFooterConfiguration: GlobalElementConfiguration = .init()
-    
+
     private var cachedGlobalHeaderSize: CGSize = .zero
     private var cachedGlobalFooterSize: CGSize = .zero
     
@@ -40,14 +40,18 @@ open class FlowLayout: UICollectionViewFlowLayout {
         }
         
         // if we don't have cached attributes and either the height has changed or we need to pin, invalidate the attributes
-        if cachedGlobalHeaderAttributes != nil &&
-            (globalHeaderConfiguration.pinsToBounds || collectionView.bounds.height != newBounds.height) {
+        if cachedGlobalHeaderSize != .zero,
+            globalHeaderConfiguration.pinsToBounds,
+            collectionView.bounds.width == newBounds.width,
+            collectionView.bounds.minY != newBounds.minY {
             context.invalidateGlobalHeaderLayoutAttributes = true
         }
         
         // if we don't have cached attributes and either the width has changed or we need to pin, invalidate the attributes
-        if cachedGlobalFooterAttributes != nil &&
-            (globalFooterConfiguration.pinsToBounds || collectionView.bounds.height != newBounds.height) {
+        if cachedGlobalFooterSize != .zero,
+            globalFooterConfiguration.pinsToBounds,
+            collectionView.bounds.width == newBounds.width,
+            collectionView.bounds.maxY != newBounds.maxY {
             context.invalidateGlobalFooterLayoutAttributes = true
         }
         
@@ -56,12 +60,20 @@ open class FlowLayout: UICollectionViewFlowLayout {
     
     open override func invalidateLayout(with context: UICollectionViewLayoutInvalidationContext) {
         guard let collectionView = collectionView else { return }
-        
+
         guard let context = context as? FlowLayoutInvalidationContext else {
             fatalError("Expected: \(FlowLayoutInvalidationContext.self)")
         }
         
         super.invalidateLayout(with: context)
+
+        if context.invalidateEverything {
+            cachedGlobalHeaderSize = .zero
+            cachedGlobalFooterSize = .zero
+            cachedGlobalHeaderAttributes = nil
+            cachedGlobalFooterAttributes = nil
+            cachedBackgroundAttributes.removeAll()
+        }
         
         if context.invalidateGlobalHeaderLayoutAttributes {
             cachedGlobalHeaderAttributes = nil
@@ -72,19 +84,16 @@ open class FlowLayout: UICollectionViewFlowLayout {
         }
         
         if context.invalidateGlobalHeaderMetrics {
-            let newSize = sizeForGlobalHeader
-            cachedGlobalHeaderSize = newSize
+            cachedGlobalHeaderSize = .zero
         }
         
         if context.invalidateGlobalFooterMetrics {
-            let newSize = sizeForGlobalFooter
-            cachedGlobalFooterSize = newSize
+            cachedGlobalFooterSize = .zero
         }
-        
-        if context.invalidateBackgrounds ||
-            context.invalidateEverything ||
-            context.invalidateFlowLayoutDelegateMetrics ||
-            context.invalidateDataSourceCounts {
+
+        if context.invalidateBackgrounds
+            || context.invalidateFlowLayoutDelegateMetrics
+            || context.invalidateDataSourceCounts {
             cachedBackgroundAttributes.removeAll()
         }
         
@@ -104,25 +113,29 @@ open class FlowLayout: UICollectionViewFlowLayout {
     }
     
     // MARK: - Prepare
-    
+
     open override func prepare() {
         super.prepare()
         
         guard let collectionView = collectionView else { return }
-        
-        let globalHeaderSize = cachedGlobalHeaderSize
-        
-        if cachedGlobalHeaderAttributes == nil, globalHeaderSize != .zero {
+
+        if cachedGlobalHeaderSize == .zero {
+            cachedGlobalHeaderSize = sizeForGlobalHeader
+        }
+
+        if cachedGlobalHeaderSize != .zero, cachedGlobalHeaderAttributes == nil {
             cachedGlobalHeaderAttributes = FlowLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindGlobalHeader, with: UICollectionView.globalElementIndexPath)
-            cachedGlobalHeaderAttributes?.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: globalHeaderSize.height)
+            cachedGlobalHeaderAttributes?.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: cachedGlobalHeaderSize.height)
         }
         
-        let globalFooterSize = cachedGlobalFooterSize
+        if cachedGlobalFooterSize == .zero {
+            cachedGlobalFooterSize = sizeForGlobalFooter
+        }
         
-        if cachedGlobalFooterAttributes == nil, globalFooterSize != .zero {
+        if cachedGlobalFooterSize != .zero, cachedGlobalFooterAttributes == nil {
             cachedGlobalFooterAttributes = FlowLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindGlobalFooter, with: UICollectionView.globalElementIndexPath)
-            let maxY = max(collectionView.bounds.maxY, collectionViewContentSize.height) - globalFooterSize.height
-            cachedGlobalFooterAttributes?.frame = CGRect(x: 0, y: maxY, width: collectionView.bounds.width, height: globalFooterSize.height)
+            let maxY = max(collectionView.bounds.maxY, collectionViewContentSize.height) - cachedGlobalFooterSize.height
+            cachedGlobalFooterAttributes?.frame = CGRect(x: 0, y: maxY, width: collectionView.bounds.width, height: cachedGlobalFooterSize.height)
         }
         
         let sectionCount = collectionView.dataSource?.numberOfSections?(in: collectionView) ?? 0
@@ -140,46 +153,6 @@ open class FlowLayout: UICollectionViewFlowLayout {
             
             cachedBackgroundAttributes[section] = backgroundAttributes(section: section, numberOfItems: itemCount, style: style, insets: insets)
         }
-    }
-    
-    private func backgroundAttributes(section: Int, numberOfItems: Int, style: BackgroundLayoutStyle, insets: UIEdgeInsets) -> FlowLayoutAttributes? {
-        guard let collectionView = collectionView else { return nil }
-        
-        let firstIndex = 0
-        let lastIndex = numberOfItems - 1
-        guard lastIndex >= 0 else { return nil }
-        
-        guard let firstAttributes = super.layoutAttributesForItem(at: IndexPath(item: firstIndex, section: section)),
-            let lastAttributes = super.layoutAttributesForItem(at: IndexPath(item: lastIndex, section: section)) else {
-                return nil
-        }
-        
-        let indexPath = IndexPath(item: 0, section: section)
-        let sectionInsets = self.insets(for: section)
-        let bgAttributes = FlowLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindBackground, with: indexPath)
-        
-        let x: CGFloat = 0
-        let w: CGFloat = collectionView.bounds.width
-        var y: CGFloat = firstAttributes.frame.minY
-        var h: CGFloat = lastAttributes.frame.maxY - firstAttributes.frame.minY
-        
-        switch style {
-        case .outerBounds:
-            let headerHeight = super.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath)?.size.height ?? 0
-            let footerHeight = super.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, at: indexPath)?.size.height ?? 0
-            y -= headerHeight + sectionInsets.top
-            h += headerHeight + footerHeight + sectionInsets.top + sectionInsets.bottom
-        case .innerBounds:
-            y -= sectionInsets.top
-            h += sectionInsets.top + sectionInsets.bottom
-        case .none:
-            return nil
-        }
-        
-        bgAttributes.frame = CGRect(x: x, y: y, width: w, height: h).inset(by: insets)
-        bgAttributes.zIndex = UICollectionView.backgroundZIndex
-        
-        return bgAttributes
     }
     
     // MARK: - Attributes
