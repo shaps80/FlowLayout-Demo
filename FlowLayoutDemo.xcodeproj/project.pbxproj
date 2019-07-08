@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54906D4922D3EFAB006112D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54906D4822D3EFAB006112D6 /* UIKit.framework */; };
 		54B0067622D3DB240085E479 /* FlowLayout+Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */; };
 		54DC512E22D14B41008889A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512D22D14B41008889A7 /* AppDelegate.swift */; };
 		54DC513022D14B41008889A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512F22D14B41008889A7 /* SceneDelegate.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		54906D4822D3EFAB006112D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout+Backgrounds.swift"; sourceTree = "<group>"; };
 		54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DC512D22D14B41008889A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,18 +103,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54906D4922D3EFAB006112D6 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54906D4722D3EFAB006112D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				54906D4822D3EFAB006112D6 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		54DC512122D14B41008889A7 = {
 			isa = PBXGroup;
 			children = (
 				54DC512C22D14B41008889A7 /* FlowLayoutDemo */,
 				54DC514722D14B4B008889A7 /* FlowLayout */,
 				54DC512B22D14B41008889A7 /* Products */,
+				54906D4722D3EFAB006112D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -456,15 +468,18 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V2CWYL9AN8;
 				INFOPLIST_FILE = FlowLayoutDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.FlowLayoutDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -475,15 +490,18 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V2CWYL9AN8;
 				INFOPLIST_FILE = FlowLayoutDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.FlowLayoutDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -492,6 +510,7 @@
 		54DC515022D14B4B008889A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -522,6 +541,7 @@
 		54DC515122D14B4B008889A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
