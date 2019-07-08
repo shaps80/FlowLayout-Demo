@@ -9,10 +9,18 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>FlowLayoutDemo.xcscheme_^#shared#^_</key>
+		<key>FlowLayoutDemo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>54DC514522D14B4B008889A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

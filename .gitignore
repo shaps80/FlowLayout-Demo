@@ -18,7 +18,6 @@ coverage
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
-*/project.xcworkspace/xcshareddata/
 *.orig
 
 ## Other
