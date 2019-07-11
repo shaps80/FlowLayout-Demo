@@ -171,6 +171,7 @@ open class FlowLayout: UICollectionViewFlowLayout {
     // MARK: - Attributes
     
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let rect = rect.insetBy(dx: 0, dy: -(cachedGlobalHeaderSize.height + cachedGlobalFooterSize.height))
         var originalAttributes = super.layoutAttributesForElements(in: rect) ?? []
         
         if let attributes = copy(of: cachedGlobalHeaderAttributes).map({ adjustedAttributes(for: $0) }),

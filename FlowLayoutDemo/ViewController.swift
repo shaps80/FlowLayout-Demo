@@ -59,7 +59,7 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         
 //        flowLayout.globalFooterConfiguration.pinsToContent = true
         flowLayout.globalFooterConfiguration.pinsToBounds = true
-//        flowLayout.globalFooterConfiguration.prefersFollowContent = true
+        flowLayout.globalFooterConfiguration.prefersFollowContent = true
         flowLayout.globalFooterConfiguration.layoutFromSafeArea = false
         
         navigationItem.rightBarButtonItems = [
