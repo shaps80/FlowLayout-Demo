@@ -7,24 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		54906D4922D3EFAB006112D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54906D4822D3EFAB006112D6 /* UIKit.framework */; };
-		54B0067622D3DB240085E479 /* FlowLayout+Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */; };
+		5442884022E61D1300C83929 /* FlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 5442883F22E61D1300C83929 /* FlowLayout */; };
 		54DC512E22D14B41008889A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512D22D14B41008889A7 /* AppDelegate.swift */; };
 		54DC513022D14B41008889A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512F22D14B41008889A7 /* SceneDelegate.swift */; };
 		54DC513222D14B41008889A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC513122D14B41008889A7 /* ViewController.swift */; };
 		54DC513522D14B41008889A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC513322D14B41008889A7 /* Main.storyboard */; };
 		54DC513722D14B42008889A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54DC513622D14B42008889A7 /* Assets.xcassets */; };
 		54DC513A22D14B42008889A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC513822D14B42008889A7 /* LaunchScreen.storyboard */; };
-		54DC514A22D14B4B008889A7 /* FlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC514822D14B4B008889A7 /* FlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		54DC514D22D14B4B008889A7 /* FlowLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DC514622D14B4B008889A7 /* FlowLayout.framework */; };
-		54DC514E22D14B4B008889A7 /* FlowLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54DC514622D14B4B008889A7 /* FlowLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		54DC515422D14B59008889A7 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC515322D14B59008889A7 /* FlowLayout.swift */; };
-		54DC515622D14B6F008889A7 /* FlowLayoutInvalidationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC515522D14B6F008889A7 /* FlowLayoutInvalidationContext.swift */; };
-		54DC515822D14B91008889A7 /* FlowLayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC515722D14B91008889A7 /* FlowLayoutDelegate.swift */; };
-		54DC515A22D14BA5008889A7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC515922D14BA5008889A7 /* Constants.swift */; };
-		54DC515C22D14CBB008889A7 /* FlowLayoutItemAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC515B22D14CBB008889A7 /* FlowLayoutItemAttributes.swift */; };
-		54DC515E22D14DEC008889A7 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC515D22D14DEC008889A7 /* Helpers.swift */; };
-		54DC516022D15079008889A7 /* FlowLayout+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC515F22D15079008889A7 /* FlowLayout+Types.swift */; };
 		54DC516222D15656008889A7 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54DC516122D15656008889A7 /* Cell.xib */; };
 		54DC516422D1593D008889A7 /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC516322D1593D008889A7 /* Color+Random.swift */; };
 		54DC516622D15942008889A7 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC516522D15942008889A7 /* Lorem.swift */; };
@@ -32,19 +21,7 @@
 		54F9856D22D1E11300191D24 /* GlobalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9856C22D1E11300191D24 /* GlobalView.swift */; };
 		54F9856F22D1E11A00191D24 /* GlobalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F9856E22D1E11A00191D24 /* GlobalView.xib */; };
 		54F9857122D1E1CE00191D24 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9857022D1E1CE00191D24 /* NibLoadable.swift */; };
-		54F9857522D1FD7E00191D24 /* FlowLayout+Adjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9857422D1FD7E00191D24 /* FlowLayout+Adjustments.swift */; };
-		54FCF1A822E613790054FD89 /* FlowLayout-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 54FCF1A722E613790054FD89 /* FlowLayout-SPM */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		54DC514B22D14B4B008889A7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 54DC512222D14B41008889A7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 54DC514522D14B4B008889A7;
-			remoteInfo = FlowLayout;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		54DC515222D14B4B008889A7 /* Embed Frameworks */ = {
@@ -53,7 +30,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				54DC514E22D14B4B008889A7 /* FlowLayout.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,8 +37,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5442883E22E61ADB00C83929 /* FlowLayout */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FlowLayout; path = ../../../../System/Volumes/Data/Users/shaps/Projects/FlowLayout/FlowLayout; sourceTree = "<group>"; };
 		54906D4822D3EFAB006112D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout+Backgrounds.swift"; sourceTree = "<group>"; };
 		54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DC512D22D14B41008889A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54DC512F22D14B41008889A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,16 +47,6 @@
 		54DC513622D14B42008889A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54DC513922D14B42008889A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		54DC513B22D14B42008889A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54DC514622D14B4B008889A7 /* FlowLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlowLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		54DC514822D14B4B008889A7 /* FlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlowLayout.h; sourceTree = "<group>"; };
-		54DC514922D14B4B008889A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54DC515322D14B59008889A7 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
-		54DC515522D14B6F008889A7 /* FlowLayoutInvalidationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayoutInvalidationContext.swift; sourceTree = "<group>"; };
-		54DC515722D14B91008889A7 /* FlowLayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayoutDelegate.swift; sourceTree = "<group>"; };
-		54DC515922D14BA5008889A7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		54DC515B22D14CBB008889A7 /* FlowLayoutItemAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayoutItemAttributes.swift; sourceTree = "<group>"; };
-		54DC515D22D14DEC008889A7 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		54DC515F22D15079008889A7 /* FlowLayout+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout+Types.swift"; sourceTree = "<group>"; };
 		54DC516122D15656008889A7 /* Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 		54DC516322D1593D008889A7 /* Color+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
 		54DC516522D15942008889A7 /* Lorem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
@@ -88,7 +54,6 @@
 		54F9856C22D1E11300191D24 /* GlobalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalView.swift; sourceTree = "<group>"; };
 		54F9856E22D1E11A00191D24 /* GlobalView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobalView.xib; sourceTree = "<group>"; };
 		54F9857022D1E1CE00191D24 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
-		54F9857422D1FD7E00191D24 /* FlowLayout+Adjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout+Adjustments.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,16 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DC514D22D14B4B008889A7 /* FlowLayout.framework in Frameworks */,
-				54FCF1A822E613790054FD89 /* FlowLayout-SPM in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		54DC514322D14B4B008889A7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				54906D4922D3EFAB006112D6 /* UIKit.framework in Frameworks */,
+				5442884022E61D1300C83929 /* FlowLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +79,8 @@
 		54DC512122D14B41008889A7 = {
 			isa = PBXGroup;
 			children = (
+				5442883E22E61ADB00C83929 /* FlowLayout */,
 				54DC512C22D14B41008889A7 /* FlowLayoutDemo */,
-				54DC514722D14B4B008889A7 /* FlowLayout */,
 				54DC512B22D14B41008889A7 /* Products */,
 				54906D4722D3EFAB006112D6 /* Frameworks */,
 			);
@@ -134,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */,
-				54DC514622D14B4B008889A7 /* FlowLayout.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,36 +115,7 @@
 			path = FlowLayoutDemo;
 			sourceTree = "<group>";
 		};
-		54DC514722D14B4B008889A7 /* FlowLayout */ = {
-			isa = PBXGroup;
-			children = (
-				54DC514822D14B4B008889A7 /* FlowLayout.h */,
-				54DC514922D14B4B008889A7 /* Info.plist */,
-				54DC515322D14B59008889A7 /* FlowLayout.swift */,
-				54F9857422D1FD7E00191D24 /* FlowLayout+Adjustments.swift */,
-				54B0067522D3DB240085E479 /* FlowLayout+Backgrounds.swift */,
-				54DC515B22D14CBB008889A7 /* FlowLayoutItemAttributes.swift */,
-				54DC515522D14B6F008889A7 /* FlowLayoutInvalidationContext.swift */,
-				54DC515722D14B91008889A7 /* FlowLayoutDelegate.swift */,
-				54DC515F22D15079008889A7 /* FlowLayout+Types.swift */,
-				54DC515D22D14DEC008889A7 /* Helpers.swift */,
-				54DC515922D14BA5008889A7 /* Constants.swift */,
-			);
-			path = FlowLayout;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		54DC514122D14B4B008889A7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				54DC514A22D14B4B008889A7 /* FlowLayout.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		54DC512922D14B41008889A7 /* FlowLayoutDemo */ = {
@@ -204,33 +130,14 @@
 			buildRules = (
 			);
 			dependencies = (
-				54DC514C22D14B4B008889A7 /* PBXTargetDependency */,
 			);
 			name = FlowLayoutDemo;
 			packageProductDependencies = (
-				54FCF1A722E613790054FD89 /* FlowLayout-SPM */,
+				5442883F22E61D1300C83929 /* FlowLayout */,
 			);
 			productName = FlowLayoutDemo;
 			productReference = 54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */;
 			productType = "com.apple.product-type.application";
-		};
-		54DC514522D14B4B008889A7 /* FlowLayout */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 54DC514F22D14B4B008889A7 /* Build configuration list for PBXNativeTarget "FlowLayout" */;
-			buildPhases = (
-				54DC514122D14B4B008889A7 /* Headers */,
-				54DC514222D14B4B008889A7 /* Sources */,
-				54DC514322D14B4B008889A7 /* Frameworks */,
-				54DC514422D14B4B008889A7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = FlowLayout;
-			productName = FlowLayout;
-			productReference = 54DC514622D14B4B008889A7 /* FlowLayout.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -244,10 +151,6 @@
 				TargetAttributes = {
 					54DC512922D14B41008889A7 = {
 						CreatedOnToolsVersion = 11.0;
-					};
-					54DC514522D14B4B008889A7 = {
-						CreatedOnToolsVersion = 11.0;
-						LastSwiftMigration = 1100;
 					};
 				};
 			};
@@ -265,7 +168,6 @@
 			projectRoot = "";
 			targets = (
 				54DC512922D14B41008889A7 /* FlowLayoutDemo */,
-				54DC514522D14B4B008889A7 /* FlowLayout */,
 			);
 		};
 /* End PBXProject section */
@@ -280,13 +182,6 @@
 				54DC513722D14B42008889A7 /* Assets.xcassets in Resources */,
 				54DC513522D14B41008889A7 /* Main.storyboard in Resources */,
 				54F9856F22D1E11A00191D24 /* GlobalView.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		54DC514422D14B4B008889A7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,31 +203,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		54DC514222D14B4B008889A7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				54DC515822D14B91008889A7 /* FlowLayoutDelegate.swift in Sources */,
-				54B0067622D3DB240085E479 /* FlowLayout+Backgrounds.swift in Sources */,
-				54DC515E22D14DEC008889A7 /* Helpers.swift in Sources */,
-				54F9857522D1FD7E00191D24 /* FlowLayout+Adjustments.swift in Sources */,
-				54DC515C22D14CBB008889A7 /* FlowLayoutItemAttributes.swift in Sources */,
-				54DC515422D14B59008889A7 /* FlowLayout.swift in Sources */,
-				54DC515622D14B6F008889A7 /* FlowLayoutInvalidationContext.swift in Sources */,
-				54DC515A22D14BA5008889A7 /* Constants.swift in Sources */,
-				54DC516022D15079008889A7 /* FlowLayout+Types.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		54DC514C22D14B4B008889A7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 54DC514522D14B4B008889A7 /* FlowLayout */;
-			targetProxy = 54DC514B22D14B4B008889A7 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		54DC513322D14B41008889A7 /* Main.storyboard */ = {
@@ -471,7 +342,6 @@
 		54DC513F22D14B42008889A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -493,7 +363,6 @@
 		54DC514022D14B42008889A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -509,67 +378,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		54DC515022D14B4B008889A7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = V2CWYL9AN8;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = FlowLayout/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.FlowLayout;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		54DC515122D14B4B008889A7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = V2CWYL9AN8;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = FlowLayout/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.152percent.FlowLayout;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -594,21 +402,12 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		54DC514F22D14B4B008889A7 /* Build configuration list for PBXNativeTarget "FlowLayout" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				54DC515022D14B4B008889A7 /* Debug */,
-				54DC515122D14B4B008889A7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		54FCF1A722E613790054FD89 /* FlowLayout-SPM */ = {
+		5442883F22E61D1300C83929 /* FlowLayout */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "FlowLayout-SPM";
+			productName = FlowLayout;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
