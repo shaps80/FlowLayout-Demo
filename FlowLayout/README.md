@@ -1,3 +1,3 @@
 # FlowLayout
 
-A description of this package.
+A high-performance flow layout that provides global headers, footers, section backgrounds and various configurations.

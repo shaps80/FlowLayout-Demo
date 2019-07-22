@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5442884022E61D1300C83929 /* FlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 5442883F22E61D1300C83929 /* FlowLayout */; };
+		5442884822E6232800C83929 /* FlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 5442884722E6232800C83929 /* FlowLayout */; };
 		54DC512E22D14B41008889A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512D22D14B41008889A7 /* AppDelegate.swift */; };
 		54DC513022D14B41008889A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC512F22D14B41008889A7 /* SceneDelegate.swift */; };
 		54DC513222D14B41008889A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC513122D14B41008889A7 /* ViewController.swift */; };
@@ -37,7 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5442883E22E61ADB00C83929 /* FlowLayout */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FlowLayout; path = ../../../../System/Volumes/Data/Users/shaps/Projects/FlowLayout/FlowLayout; sourceTree = "<group>"; };
+		5442884622E6231F00C83929 /* FlowLayout */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FlowLayout; sourceTree = "<group>"; };
 		54906D4822D3EFAB006112D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DC512D22D14B41008889A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5442884022E61D1300C83929 /* FlowLayout in Frameworks */,
+				5442884822E6232800C83929 /* FlowLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +79,7 @@
 		54DC512122D14B41008889A7 = {
 			isa = PBXGroup;
 			children = (
-				5442883E22E61ADB00C83929 /* FlowLayout */,
+				5442884622E6231F00C83929 /* FlowLayout */,
 				54DC512C22D14B41008889A7 /* FlowLayoutDemo */,
 				54DC512B22D14B41008889A7 /* Products */,
 				54906D4722D3EFAB006112D6 /* Frameworks */,
@@ -133,7 +133,7 @@
 			);
 			name = FlowLayoutDemo;
 			packageProductDependencies = (
-				5442883F22E61D1300C83929 /* FlowLayout */,
+				5442884722E6232800C83929 /* FlowLayout */,
 			);
 			productName = FlowLayoutDemo;
 			productReference = 54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */;
@@ -405,7 +405,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5442883F22E61D1300C83929 /* FlowLayout */ = {
+		5442884722E6232800C83929 /* FlowLayout */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FlowLayout;
 		};
