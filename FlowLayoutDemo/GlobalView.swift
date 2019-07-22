@@ -8,7 +8,7 @@ final class GlobalView: UICollectionReusableView, NibLoadable {
     }
     
     static let title = Lorem.title
-    static let summary = Lorem.paragraphs(3)
+    static let summary = Lorem.paragraphs(1)
     
     @IBOutlet private weak var toggleButton: UIButton!
     @IBOutlet private weak var titleLabel: UILabel!
