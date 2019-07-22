@@ -1,6 +1,7 @@
 ## Project Specific
 API.swift
 .build
+.swiftpm
 
 ## Build generated
 build/
