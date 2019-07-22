@@ -88,7 +88,6 @@
 		54F9856E22D1E11A00191D24 /* GlobalView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobalView.xib; sourceTree = "<group>"; };
 		54F9857022D1E1CE00191D24 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		54F9857422D1FD7E00191D24 /* FlowLayout+Adjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout+Adjustments.swift"; sourceTree = "<group>"; };
-		54FCF19F22E609470054FD89 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../../../../System/Volumes/Data/Users/shaps/Projects/FlowLayoutDemo/Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +121,6 @@
 		54DC512122D14B41008889A7 = {
 			isa = PBXGroup;
 			children = (
-				54FCF19F22E609470054FD89 /* Package.swift */,
 				54DC512C22D14B41008889A7 /* FlowLayoutDemo */,
 				54DC514722D14B4B008889A7 /* FlowLayout */,
 				54DC512B22D14B41008889A7 /* Products */,
