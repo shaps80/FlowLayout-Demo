@@ -1,5 +1,6 @@
 ## Project Specific
 API.swift
+.build
 
 ## Build generated
 build/

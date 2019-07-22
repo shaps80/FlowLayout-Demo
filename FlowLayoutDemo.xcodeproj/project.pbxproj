@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,6 +33,7 @@
 		54F9856F22D1E11A00191D24 /* GlobalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F9856E22D1E11A00191D24 /* GlobalView.xib */; };
 		54F9857122D1E1CE00191D24 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9857022D1E1CE00191D24 /* NibLoadable.swift */; };
 		54F9857522D1FD7E00191D24 /* FlowLayout+Adjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9857422D1FD7E00191D24 /* FlowLayout+Adjustments.swift */; };
+		54FCF1A822E613790054FD89 /* FlowLayout-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 54FCF1A722E613790054FD89 /* FlowLayout-SPM */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54DC514D22D14B4B008889A7 /* FlowLayout.framework in Frameworks */,
+				54FCF1A822E613790054FD89 /* FlowLayout-SPM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +207,9 @@
 				54DC514C22D14B4B008889A7 /* PBXTargetDependency */,
 			);
 			name = FlowLayoutDemo;
+			packageProductDependencies = (
+				54FCF1A722E613790054FD89 /* FlowLayout-SPM */,
+			);
 			productName = FlowLayoutDemo;
 			productReference = 54DC512A22D14B41008889A7 /* FlowLayoutDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -472,7 +477,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V2CWYL9AN8;
 				INFOPLIST_FILE = FlowLayoutDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,7 +499,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V2CWYL9AN8;
 				INFOPLIST_FILE = FlowLayoutDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -599,6 +604,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		54FCF1A722E613790054FD89 /* FlowLayout-SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "FlowLayout-SPM";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 54DC512222D14B41008889A7 /* Project object */;
 }
