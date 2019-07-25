@@ -182,8 +182,8 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         }
     }
     
-    func backgroundLayoutStyle(in collectionView: UICollectionView, forSectionAt section: Int) -> BackgroundLayoutStyle {
-        return .innerBounds
+    func backgroundLayoutRegion(in collectionView: UICollectionView, forSectionAt section: Int) -> BackgroundLayoutRegion {
+        return .outerBounds
     }
     
     func backgroundLayoutInsets(in collectionView: UICollectionView, forSectionAt section: Int) -> UIEdgeInsets {

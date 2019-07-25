@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "FlowLayout",
+        "repositoryURL": "https://github.com/shaps80/FlowLayout",
+        "state": {
+          "branch": null,
+          "revision": "5d21e71437adff03f73a2aa11629e93737a163bc",
+          "version": "1.0.8"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
