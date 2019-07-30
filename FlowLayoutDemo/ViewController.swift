@@ -35,9 +35,10 @@ extension UICollectionViewFlowLayout {
     
 }
 
+
 final class ViewController: UICollectionViewController, FlowLayoutDelegate {
-    
-    private var model: [String] = []
+
+    private var model: [[String]] = []
     
     private var flowLayout: FlowLayout {
         return collectionViewLayout as! FlowLayout
@@ -47,11 +48,16 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         super.viewDidLoad()
         
         // for testing
-        navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.isNavigationBarHidden = true
+        navigationItem.largeTitleDisplayMode = .always
         
-        for _ in 0..<50 {
-            model.append(Lorem.fullName)
+        for _ in 0..<3 {
+            var models: [String] = []
+
+            for _ in 0..<3 {
+                models.append(Lorem.fullName)
+            }
+
+            model.append(models)
         }
         
         collectionView.alwaysBounceVertical = true
@@ -69,14 +75,14 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         flowLayout.minimumLineSpacing = 20
         flowLayout.minimumInteritemSpacing = 20
-        flowLayout.sectionInsetReference = .fromLayoutMargins
+        flowLayout.sectionInsetReference = .fromSafeArea
     
         flowLayout.globalHeaderConfiguration.pinsToContent = true
-        flowLayout.globalHeaderConfiguration.pinsToBounds = true
+//        flowLayout.globalHeaderConfiguration.pinsToBounds = true
 //        flowLayout.globalHeaderConfiguration.prefersFollowContent = true
 //        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = false
         
-        flowLayout.globalFooterConfiguration.pinsToContent = true
+//        flowLayout.globalFooterConfiguration.pinsToContent = true
         flowLayout.globalFooterConfiguration.pinsToBounds = true
         flowLayout.globalFooterConfiguration.prefersFollowContent = true
         flowLayout.globalFooterConfiguration.layoutFromSafeArea = false
@@ -94,28 +100,44 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
     }
     
     @objc private func add(_ sender: Any?) {
-        model.append(Lorem.fullName)
-        collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+        var models: [String] = []
+
+        for _ in 0..<3 {
+            models.append(Lorem.fullName)
+        }
+
+        model.append(models)
+        collectionView.insertSections(IndexSet(integer: model.count - 1))
     }
     
     @objc private func remove(_ sender: Any?) {
-        guard model.count > 0 else { return }
-        model.remove(at: 0)
-        collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        if model.isEmpty { return }
+        model.removeFirst()
+        collectionView.deleteSections(IndexSet(integer: 0))
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return model.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.count
+        return model[section].count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-        cell.label.text = model[indexPath.item]
+        cell.label.text = model[indexPath.section][indexPath.item]
         return cell
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if model[indexPath.section].count == 1 {
+            model.remove(at: indexPath.section)
+            collectionView.deleteSections(IndexSet(integer: indexPath.section))
+        } else {
+            model[indexPath.section].remove(at: indexPath.item)
+            collectionView.deleteItems(at: [indexPath])
+        }
     }
 
     let cell = Cell.fromNib
