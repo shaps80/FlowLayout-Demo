@@ -31,7 +31,7 @@ final class GlobalView: UICollectionReusableView, NibLoadable {
     }
     
     func setExpanded(_ expanded: Bool) {
-        summaryLabel.isHidden = !expanded
+        summaryLabel.alpha = expanded ? 1 : 0
         summaryLabel.layer.add(CATransition(), forKey: nil)
         expandedConstraint.isActive = expanded
         collapsedConstraint.isActive = !expanded

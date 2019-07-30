@@ -1,7 +1,7 @@
 import UIKit
 import FlowLayout
 
-extension FlowLayout {
+extension UICollectionViewFlowLayout {
     
     func columnWidth(forColumnCount columnCount: Int, inSection section: Int) -> CGFloat {
         guard let collectionView = collectionView else { return 0 }
@@ -10,8 +10,26 @@ extension FlowLayout {
         let interitemSpacing = self.interitemSpacing(for: section)
         
         let itemSpacing = CGFloat(columnCount - 1) * interitemSpacing
-        let availableWidth = collectionView.bounds.width - insets.left - insets.right - itemSpacing
-        
+        var maximumWidth: CGFloat
+
+        switch sectionInsetReference {
+        case .fromContentInset:
+            maximumWidth = collectionView.bounds.width
+                - collectionView.adjustedContentInset.left
+                - collectionView.adjustedContentInset.right
+        case .fromSafeArea:
+            maximumWidth = collectionView.bounds.width
+                - collectionView.safeAreaInsets.left
+                - collectionView.safeAreaInsets.right
+        case .fromLayoutMargins:
+            maximumWidth = collectionView.bounds.width
+                - collectionView.layoutMargins.left
+                - collectionView.layoutMargins.right
+        default:
+            maximumWidth = collectionView.bounds.width
+        }
+
+        let availableWidth = maximumWidth - insets.left - insets.right - itemSpacing
         return (availableWidth / CGFloat(columnCount)).rounded(.down)
     }
     
@@ -51,13 +69,14 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         flowLayout.minimumLineSpacing = 20
         flowLayout.minimumInteritemSpacing = 20
+        flowLayout.sectionInsetReference = .fromLayoutMargins
     
         flowLayout.globalHeaderConfiguration.pinsToContent = true
         flowLayout.globalHeaderConfiguration.pinsToBounds = true
 //        flowLayout.globalHeaderConfiguration.prefersFollowContent = true
 //        flowLayout.globalHeaderConfiguration.layoutFromSafeArea = false
         
-//        flowLayout.globalFooterConfiguration.pinsToContent = true
+        flowLayout.globalFooterConfiguration.pinsToContent = true
         flowLayout.globalFooterConfiguration.pinsToBounds = true
         flowLayout.globalFooterConfiguration.prefersFollowContent = true
         flowLayout.globalFooterConfiguration.layoutFromSafeArea = false
@@ -66,6 +85,12 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add(_:))),
             UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(remove(_:)))
         ]
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        cachedItemSizes.removeAll()
+        flowLayout.invalidateLayout()
     }
     
     @objc private func add(_ sender: Any?) {
@@ -101,12 +126,12 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
             cachedBounds[indexPath] = collectionView.bounds
         }
 
-        if let size = cachedItemSizes[indexPath],
-            cachedBounds[indexPath]?.width == collectionView.bounds.width {
+        let width = flowLayout.columnWidth(forColumnCount: 3, inSection: indexPath.section)
+
+        if let size = cachedItemSizes[indexPath] {
             return size
         }
 
-        let width = flowLayout.columnWidth(forColumnCount: 3, inSection: indexPath.section)
         let target = CGSize(width: width, height: 0)
 
         cachedItemSizes[indexPath] = cell.contentView.systemLayoutSizeFitting(target, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
