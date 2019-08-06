@@ -229,7 +229,7 @@ final class ViewController: UICollectionViewController, FlowLayoutDelegate {
         }
     }
     
-    func backgroundLayoutRegion(in collectionView: UICollectionView, forSectionAt section: Int) -> BackgroundLayoutRegion {
+    func backgroundLayoutRegion(in collectionView: UICollectionView, forSectionAt section: Int) -> LayoutRegion {
         return .outerBounds
     }
     
